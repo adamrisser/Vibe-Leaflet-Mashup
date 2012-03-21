@@ -28,12 +28,16 @@ var Hood = function() {
 		 * @param  {Object} config object for thie hood
 		 * @return {void}        
 		 */
-		init: function(config) {
+		activate: function(config) {
 			this.map = config.map;
 			this.placeId = config.placeId;
 
+			if (this.layer != null) {
+				map.removeLayer(this.layer);
+			}
+
             this.layer = new L.GeoJSON();
-            
+
             // (boilerplate) identical initialization process to neighborhoods
             $.when(
                 this.fetch(), this.fetchPois(8)
@@ -112,12 +116,12 @@ var Hood = function() {
                 self.layer.addGeoJSON(child);
             });
 
-            self.map.addLayer(self.layer);
-
             $(pois).each(function (i, poi) {
-            	var marker = new L.Marker(new L.LatLng(poi.latLng.lat, poi.latLng.lng));
-            	self.map.addLayer(marker);
+            	var marker = new L.Marker(new L.LatLng(poi.latLng.lat, poi.latLng.lng), { icon: new L.Icon('http://content.mqcdn.com/vibe/2-1-37/images/s1_big_pin.png') });
+            	self.layer.addLayer(marker);
             });
+
+			self.map.addLayer(self.layer);
 		}
 
 	};
