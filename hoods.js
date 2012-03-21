@@ -95,10 +95,20 @@
                 
                 // mouse over event
                 e.layer.on("mouseover", function (e) {
+
+                    e.target.setStyle({
+                        fillOpacity: 0.85
+                    });
+                    
                     //e.target._popup.options.offset = new L.Point(0, -15);
                     e.target._openPopup({ 
                         latlng: latLng || e.latlng
                     });
+                });
+                
+                // mouse out
+                e.layer.on("mouseout", function (e) {
+                    e.target.setStyle({ fillOpacity: colors.opacity });
                 });
 
                 e.layer.on("click", function (l) {
