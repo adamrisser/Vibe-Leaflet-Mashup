@@ -74,7 +74,7 @@
 			// set up events
 			self.layer.on("featureparse", function (e) {
 				
-			    var popupContent = '<div>' + (e.properties.name + ' ' + e.properties.vibe_score).replace(/\s/g, '&nbsp;') + '</div>';
+			    var popupContent = '<div class="iw">' + e.properties.name + ' <span class="score">' + e.properties.vibe_score + '</span></div>';
                 
                 var colors = self.getVibeScoreParams(e.properties.vibe_score);
                
