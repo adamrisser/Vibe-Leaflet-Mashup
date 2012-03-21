@@ -102,7 +102,7 @@ var Hood = function() {
                 
                 // mouse over event
                 e.layer.on("mouseover", function (e) { 
-                    e.target._openPopup({ latlng: e.latlng });
+                    //e.target._openPopup({ latlng: e.latlng });
                 });
              
                 e.layer.bindPopup(popupContent);

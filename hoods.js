@@ -76,7 +76,14 @@
                 
                 var popupContent = '<div class="iw">' + e.properties.name + ' <span class="score">' + e.properties.vibe_score + '</span></div>';
                 
-                var colors = self.getVibeScoreParams(e.properties.vibe_score);
+                var colors = self.getVibeScoreParams(e.properties.vibe_score), latLng;
+               
+                //TODO: temporary remove
+                $(response.features).each(function (i, feature) {
+                    if (feature.properties == e.properties) {
+                        latLng = new L.LatLng(feature.latLng.lat, feature.latLng.lng);
+                    }
+                });
                
                 e.layer.setStyle({
                     fillColor: colors.rgb,
@@ -87,8 +94,11 @@
                 });
                 
                 // mouse over event
-                e.layer.on("mouseover", function (e) { 
-                    e.target._openPopup({ latlng: e.latlng });
+                e.layer.on("mouseover", function (e) {
+                    //e.target._popup.options.offset = new L.Point(0, -15);
+                    e.target._openPopup({ 
+                        latlng: latLng || e.latlng
+                    });
                 });
 
                 e.layer.on("click", function (l) {
@@ -102,7 +112,7 @@
             
             // add each hood from the response to the new geojson layer
             $(response.features).each(function (i, feature) {
-                self.layer.addGeoJSON(feature);
+                self.layer.addGeoJSON(feature, i);
             });
             
             // finally, add the entire layer to the map
