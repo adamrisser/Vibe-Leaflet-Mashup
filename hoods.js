@@ -90,7 +90,8 @@
                     fillOpacity: colors.opacity,
                     opacity: 1,
                     color: "#fff",
-                    weight: 1
+                    weight: 2,
+                    stroke: true, 
                 });
                 
                 // mouse over event
@@ -112,9 +113,18 @@
                 });
 
                 e.layer.on("click", function (l) {
+                    var target = l.target,
+                        allLayers = self.layer._layers;
+
+                    for (o in allLayers) {
+                        if (target !== allLayers[o]) {
+                            allLayers[o].setStyle({ weight: 2, color: "#fff" });
+                        }
+                    }
+
                     self.map.fitBounds(new L.LatLngBounds(l.target._latlngs));
-                    l.target.setStyle({ stroke: true, color: '#000', weight: 5, opacity: 1 });
-                    Hood.init({ map: self.map, placeId: e.id });
+                    l.target.setStyle({ color: '#000', weight: 5 });
+                    Hood.activate({ map: self.map, placeId: e.id });
                 });
              
                 e.layer.bindPopup(popupContent);
