@@ -123,11 +123,11 @@
                     }
 
                     self.map.fitBounds(new L.LatLngBounds(l.target._latlngs));
-                    l.target.setStyle({ color: '#000', weight: 5 });
+                    l.target.setStyle({ color: '#000', weight: 8 });
                     Hood.activate({ map: self.map, placeId: e.id });
                 });
              
-                e.layer.bindPopup(popupContent);
+                e.layer.bindPopup(popupContent, { closeButton: false, autoPan: false });
             });
             
             // add each hood from the response to the new geojson layer
