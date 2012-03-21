@@ -30,18 +30,7 @@
 			this.map = map;
 			
 			// init the new hood layer
-			this.layer = new L.GeoJSON(null, {
-				pointToLayer: function (latlng) {
-			        return new L.CircleMarker(latlng, {
-			            radius: 8,
-			            fillColor: "#ff7800",
-			            color: "#000",
-			            weight: 1,
-			            opacity: 1,
-			            fillOpacity: 0.8
-			        });
-			    }
-			});
+			this.layer = new L.GeoJSON();
 			
 			// get it and set it!
 			$.when(
@@ -86,12 +75,22 @@
 			self.layer.on("featureparse", function (e) {
 				
 			    var popupContent = '<div>' + (e.properties.name + ' ' + e.properties.vibe_score).replace(/\s/g, '&nbsp;') + '</div>';
-					
+                
+                var colors = self.getVibeScoreParams(e.properties.vibe_score);
+               
+                e.layer.setStyle({
+                    fillColor: colors.rgb,
+                    fillOpacity: colors.opacity,
+                    opacity: 1,
+                    color: "#ffffff",
+                    weight: 1
+                });
+                
 				// mouse over event
 				e.layer.on("mouseover", function (e) { 
 					e.target._openPopup({ latlng: e.latlng });
 				});
-			
+			 
 			    e.layer.bindPopup(popupContent);
 			});
 			
@@ -102,7 +101,40 @@
 			
 			// finally, add the entire layer to the map
 			self.map.addLayer(self.layer)
-		}
+		},
+		
+		/**
+         * Get a RGB value which represents the score.
+         * Neighborhood opacity/color is determined by their score. 
+         * @param {Object} score vibe score
+         */
+        getVibeScoreParams: function (score) {
+            var rgb,
+                opacity = .3;
+            
+            if (score >= 8) {
+                rgb = 'rgb(244, 125, 68)';
+            }
+            else if (score >= 6) {
+                rgb = 'rgb(204, 113, 71)';
+            }
+            else if (score >= 4) {
+                rgb = 'rgb(179, 118, 89)';
+            }
+            else if (score >= 2) {
+                rgb = 'rgb(128, 93, 77)';
+            }
+            else {
+                rgb = 'rgb(77, 61, 54)';
+            }
+            
+            // min opacity for score 0  = 30%
+            // max opacity for score 10 = 80%
+            return {
+                rgb: rgb,
+                opacity: opacity + score * .04
+            };
+        },
 	};
 	
 	

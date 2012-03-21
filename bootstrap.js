@@ -12,14 +12,14 @@
 	 * @type {Array<String>}
 	 * @private
 	 */
-	subDomains = ['otile1','otile2','otile3','otile4'],
+	subDomains = ['otile1', 'otile2', 'otile3', 'otile4'],
 	
 	/**
 	 * Copyrights
 	 * @type {String}
 	 * @private
 	 */
-	mapquestAttrib = 'Data, imagery and map information provided by <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>,' +
+	copyright = 'Data, imagery and map information provided by <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>,' +
 		'<a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> and contributors.';
     
 	/**
@@ -29,7 +29,7 @@
 	 */
     mq = new L.TileLayer(mapquestUrl, {
         maxZoom: 18,
-        attribution: mapquestAttrib,
+        attribution: copyright,
         subdomains: subDomains
     }),
     
