@@ -117,7 +117,9 @@ var Hood = function() {
             });
 
             $(pois).each(function (i, poi) {
-            	var marker = new L.Marker(new L.LatLng(poi.latLng.lat, poi.latLng.lng), { icon: new L.Icon('http://content.mqcdn.com/vibe/2-1-37/images/s1_big_pin.png') });
+            	var marker = new L.Marker(new L.LatLng(poi.latLng.lat, poi.latLng.lng), 
+            		{ icon: new L.Icon('http://content.mqcdn.com/vibe/2-1-37/images/s1_big_pin.png'), poi: poi });
+            	marker.bindPopup('<div class="poi-details"><h4>' + poi.name + "</h4><div>" + poi.street + "</div><div>" + poi.city + ", " + poi.state_code + " " + poi.postal_code + "</div></div>");
             	self.layer.addLayer(marker);
             });
 

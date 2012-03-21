@@ -26,12 +26,9 @@ body, html {
     margin: 5px 10px;
 }
 
-.leaflet-popup-tip-container {
-    
-}
-
-/*
 .leaflet-popup-close-button {
+    position: absolute;
+    z-index: 5;
     background-position: 6px 6px;
     background-repeat: no-repeat;
     border-color: rgba(255, 255, 255, 0.4);
@@ -41,7 +38,6 @@ body, html {
     top: -4px;
     width: 22px;
 }
-*/
 
 .leaflet-popup-content {
     color: #fff;
@@ -56,6 +52,19 @@ body, html {
     white-space: nowrap;
     font-size: 14px;
     font-weight: bold;
+}
+
+.poi-details {
+    padding-bottom: 20px;
+}
+
+.poi-details h4 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.poi-details .rank {
+    float: right;
 }
 
 
